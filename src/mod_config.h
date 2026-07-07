@@ -44,20 +44,4 @@ static inline bool fade_unblock_movement(void) {
     return config_enabled("unblock_movement");
 }
 
-// --- Clock speed -------------------------------------------------------------
-
-static inline double clock_speed_scale(void) {
-    double scale = recomp_get_config_double("clock_speed");
-
-    if (scale < 0.10) {
-        return 0.10;
-    }
-
-    if (scale > 2.00) {
-        return 2.00;
-    }
-
-    return scale;
-}
-
 #endif

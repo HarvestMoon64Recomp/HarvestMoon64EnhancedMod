@@ -43,7 +43,11 @@ $(TARGET): $(ALL_OBJS) $(LDSCRIPT) | $(BUILD_DIR)
 	$(LD) $(ALL_OBJS) $(LDFLAGS) -o $@
 
 $(BUILD_DIR) $(BUILD_DIRS):
+ifeq ($(OS),Windows_NT)
+	if not exist "$(subst /,\,$@)" mkdir "$(subst /,\,$@)"
+else
 	mkdir -p $@
+endif
 
 $(C_OBJS): $(BUILD_DIR)/%.o : %.c | $(BUILD_DIRS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $< -MMD -MF $(@:.o=.d) -c -o $@
